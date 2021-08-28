@@ -16,6 +16,9 @@ function callback_init()
 function callback_remove()
 {
 	// 禁用插件时移除配置文件
+	option::del('loyisa_recaptcha_register');
+	option::del('loyisa_recaptcha_login');
+	option::del('loyisa_recaptcha_score');
 	option::del('loyisa_recaptcha_site_key');
 	option::del('loyisa_recaptcha_secret_key');
 }
