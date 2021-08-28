@@ -12,23 +12,41 @@ if (!defined('SYSTEM_ROOT')) {
     die('Insufficient Permissions');
 }
 
+//显示验证码
 function loyisa_recaptcha_show()
 {
-    //显示验证码
+    // 检测是否开启注册验证码
+    if (SYSTEM_PAGE == 'reg' && option::get('loyisa_recaptcha_register') == 0) {
+        return;
+    }
+    // 检测是否开启登录验证码
+    if (SYSTEM_PAGE == 'login' && option::get('loyisa_recaptcha_login') == 0) {
+        return;
+    }
     show_recaptcha(option::get('loyisa_recaptcha_sitekey'), option::get('loyisa_recaptcha_theme'));
 }
 
 // 检查验证码
 function loyisa_recaptcha_check()
 {
-    $status = get_recaptcha(option::get('loyisa_recaptcha_secretkey'), $_POST['g-recaptcha-response'], $_SERVER["REMOTE_ADDR"]);
-    if (!$status->success) {
-        switch ($status->error-codes) {
-            case 'missing-input-secret':
-            case 'invalid-input-secret':
+    // 检测是否开启注册验证码
+    if (SYSTEM_PAGE == 'admin:reg' && option::get('loyisa_recaptcha_register') == 0) {
+        return;
+    }
+    // 检测是否开启登录验证码
+    if (SYSTEM_PAGE == 'admin:login' && option::get('loyisa_recaptcha_login') == 0) {
+        return;
+    }
+    // 获取验证码
+    $response = get_recaptcha(option::get('loyisa_recaptcha_secretkey'), $_POST['g-recaptcha-response'], $_SERVER["REMOTE_ADDR"]);
+    // 检测验证码 并根据错误代码输出语句
+    if (!$response->success) {
+        switch ($response->error-codes) {
+            case '{[0] => "missing-input-secret"}':
+            case '{[0] => "invalid-input-secret"}':
                 msg('验证码配置错误!');
                 break;
-            case 'timeout-or-duplicate':
+            case '{[0] => "timeout-or-duplicate"}':
                 msg('验证码已超时!请重新验证');
                 break;
             default:
@@ -39,7 +57,7 @@ function loyisa_recaptcha_check()
 }
 
 /**
- * 对验证码进行二次校验
+ * 获取验证码json
  * @param string $secret
  * @param string $response
  * @param string $remoteip
@@ -60,5 +78,8 @@ function show_recaptcha($sitekey, $theme)
   <div class="g-recaptcha" data-sitekey="' . $sitekey . '" data-theme="' . $theme . '"></div>';
 }
 
+// hook登录/注册界面
 addAction('reg_page_2', 'loyisa_recaptcha_show');
+addAction('login_page_2', 'loyisa_recaptcha_show');
 addAction('admin_reg_1', 'loyisa_recaptcha_check');
+addAction('admin_login_1', 'loyisa_recaptcha_check');
