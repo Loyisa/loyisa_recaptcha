@@ -1,10 +1,10 @@
 <?php
 if (!defined('SYSTEM_ROOT')) { die('Insufficient Permissions'); } 
 
-$s = option::pget('wmzz_recaptcha');
+$s = option::pget('loyisa_recaptcha');
 ?>
 <h2>reCAPTCHA 注册验证码</h2><br/>
-<form action="setting.php?mod=plugin:wmzz_recaptcha" method="post">
+<form action="setting.php?mod=plugin:loyisa_recaptcha" method="post">
 	<div class="input-group">
 	  <span class="input-group-addon">Public Key [ 公钥 ]</span>
 	  <input type="text" class="form-control" name="ak" required="" value="<?php echo $s['ak'] ?>">
@@ -25,8 +25,8 @@ $s = option::pget('wmzz_recaptcha');
 <br/><br/><br/>
 <div class="well">
 <b>测试验证码：</b><br/>
-<form action="index.php?plugin=wmzz_recaptcha&mod=test" method="post">
-<?php wmzz_recaptcha_show(); ?>
+<form action="index.php?plugin=loyisa_recaptcha&mod=test" method="post">
+<?php loyisa_recaptcha_show(); ?>
 <button type="submit" class="btn btn-primary" >提交</button>
 </form>
 </div>

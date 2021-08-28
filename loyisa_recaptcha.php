@@ -11,16 +11,16 @@ For: V3.4+
 */
 if (!defined('SYSTEM_ROOT')) { die('Insufficient Permissions'); } 
 
-require SYSTEM_ROOT . '/plugins/wmzz_recaptcha/lib.php';
+require SYSTEM_ROOT . '/plugins/loyisa_recaptcha/lib.php';
 
-function wmzz_recaptcha_show() {
+function loyisa_recaptcha_show() {
 	echo '请输入验证码：';
-	$s = option::pget('wmzz_recaptcha');
+	$s = option::pget('loyisa_recaptcha');
 	echo recaptcha_get_html($s['ak']) . '<br/><br/>';
 }
 
-function wmzz_recaptcha_check() {
-    $s = option::pget('wmzz_recaptcha');
+function loyisa_recaptcha_check() {
+    $s = option::pget('loyisa_recaptcha');
 	$resp = recaptcha_check_answer($s['sk'],
         $_SERVER["REMOTE_ADDR"],
         $_POST["recaptcha_challenge_field"],
@@ -31,5 +31,5 @@ function wmzz_recaptcha_check() {
     }
 }
 
-addAction('reg_page_2','wmzz_recaptcha_show');
-addAction('admin_reg_1','wmzz_recaptcha_check');
+addAction('reg_page_2','loyisa_recaptcha_show');
+addAction('admin_reg_1','loyisa_recaptcha_check');
