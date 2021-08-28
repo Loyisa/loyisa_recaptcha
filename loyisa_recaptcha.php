@@ -2,7 +2,7 @@
 /*
 Plugin Name: reCAPTCHA验证码
 Version: 1.0
-Description: 在注册的时候，要求用户输入难度较高的 reCAPTCHA 验证码，来起到防止恶意注册和打击重复注册的作用，基于无名智者的版本进行升级和修改
+Description: 在注册/注册的时候，要求用户输入难度较高的 reCAPTCHA 验证码，来起到防止恶意注册和打击密码爆破的作用，基于无名智者的版本进行升级和修改
 Author: Loyisa
 Author Email: loyisa@vip.qq.com
 Author URL: https://loyisa.cn
