@@ -50,7 +50,7 @@ function loyisa_recaptcha_check()
                 msg('验证码已超时!请重新验证');
                 break;
             default:
-                msg('验证失败!请重新验证');
+                msg('验证码验证失败!请重新验证');
         }
     }
 }

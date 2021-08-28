@@ -23,7 +23,7 @@ switch ($_GET['action']) {
 					echo '<div class="alert alert-danger">验证码已超时!请重新验证</div>';
 					break;
 				default:
-					echo '<div class="alert alert-danger">验证失败!请重新验证</div>';
+					echo '<div class="alert alert-danger">验证码验证失败!请重新验证</div>';
 			}
 		}
 		break;
