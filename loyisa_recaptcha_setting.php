@@ -14,7 +14,7 @@ switch ($_GET['action']) {
 		if ($response->success) {
 			echo '<div class="alert alert-success">验证码测试成功!</div>';
 		} else {
-			switch ($response->error-codes) {
+			switch ($response->errorcodes) {
 				case '{[0] => "missing-input-secret"}':
 				case '{[0] => "invalid-input-secret"}':
 					echo '<div class="alert alert-danger">验证码配置错误!</div>';
@@ -24,7 +24,6 @@ switch ($_GET['action']) {
 					break;
 				default:
 					echo '<div class="alert alert-danger">验证失败!请重新验证</div>';
-					break;
 			}
 		}
 		break;

@@ -41,7 +41,7 @@ function loyisa_recaptcha_check()
     $response = get_recaptcha(option::get('loyisa_recaptcha_secretkey'), $_POST['g-recaptcha-response'], $_SERVER["REMOTE_ADDR"]);
     // 检测验证码 并根据错误代码输出语句
     if (!$response->success) {
-        switch ($response->error-codes) {
+        switch ($response->errorcodes) {
             case '{[0] => "missing-input-secret"}':
             case '{[0] => "invalid-input-secret"}':
                 msg('验证码配置错误!');
@@ -51,7 +51,6 @@ function loyisa_recaptcha_check()
                 break;
             default:
                 msg('验证失败!请重新验证');
-                break;
         }
     }
 }
