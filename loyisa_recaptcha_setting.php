@@ -1,4 +1,5 @@
-<?php if (!defined('SYSTEM_ROOT')) {
+<?php
+if (!defined('SYSTEM_ROOT')) {
 	die('Insufficient Permissions');
 }
 if (ROLE !== 'admin') {

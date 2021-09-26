@@ -37,21 +37,25 @@ function loyisa_recaptcha_check()
     if (SYSTEM_PAGE == 'admin:login' && option::get('loyisa_recaptcha_login') == 0) {
         return;
     }
-    // 获取验证码
-    $response = get_recaptcha(option::get('loyisa_recaptcha_secretkey'), $_POST['g-recaptcha-response'], $_SERVER["REMOTE_ADDR"]);
-    // 检测验证码 并根据错误代码输出语句
-    if (!$response->success) {
-        switch ($response->errorcodes) {
-            case '{[0] => "missing-input-secret"}':
-            case '{[0] => "invalid-input-secret"}':
-                msg('验证码配置错误!');
-                break;
-            case '{[0] => "timeout-or-duplicate"}':
-                msg('验证码已超时!请重新验证');
-                break;
-            default:
-                msg('验证码验证失败!请重新验证');
+    if (!empty($_POST['g-recaptcha-response'])) {
+        // 获取验证码
+        $response = get_recaptcha(option::get('loyisa_recaptcha_secretkey'), $_POST['g-recaptcha-response'], $_SERVER["REMOTE_ADDR"]);
+        // 检测验证码 并根据错误代码输出语句
+        if (!$response->success) {
+            switch ($response->errorcodes) {
+                case '{[0] => "missing-input-secret"}':
+                case '{[0] => "invalid-input-secret"}':
+                    msg('验证码配置错误!');
+                    break;
+                case '{[0] => "timeout-or-duplicate"}':
+                    msg('验证码已超时!请重新验证');
+                    break;
+                default:
+                    msg('验证码验证失败!请重新验证');
+            }
         }
+    } else {
+        msg('验证码验证失败!请重新验证');
     }
 }
 
